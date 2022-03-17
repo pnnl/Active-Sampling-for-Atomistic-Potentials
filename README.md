@@ -1,1 +1,1 @@
-# Active-Sampling-for-Atomistic-Potentials
+# Active Sampling for Atomistic Potentials
