@@ -38,7 +38,7 @@ conda create --name active_schnet --file spec-file.txt
 conda activate active_schnet
 ```
 
-#### Install SchNetPack with Expansion
+#### Install active sampling codebase and SchNetPack with expansion
 
 ```
 python setup.py install
