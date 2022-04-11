@@ -24,7 +24,7 @@ _**Note: We recommend using a GPU for training neural network potentials.**_
 - Neighbor distance computations for systems with periodic boundary conditions using the [Minimum Image Convention in Non-Cubic MD Cells](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.57.1696) to improve speed and reduce memory requirements
 
 ## Installation
-All code was tested using python 3.9 and cuda 11.0.
+All code was tested using python 3.9 and cuda 11.0 on a Linux operating system.
 
 #### Create new conda environment with requirements
 
