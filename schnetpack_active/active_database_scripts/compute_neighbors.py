@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0,'../schnetpack/src/')
+sys.path.insert(0,'../src/')
 
 import math
 import logging
@@ -16,8 +16,8 @@ from schnetpack import Properties
 flatten = lambda x: [item for sublist in x for item in sublist]
 
 class self:
-    datapath='/qfs/projects/sppsi/spru445/schnet_dbs/full_dataset_precomputed/training_data/full/full.db'
-    preprocess_path='/qfs/projects/sppsi/spru445/schnet_dbs/full_dataset_precomputed/training_data/full/cutoff6.0/'
+    datapath=None
+    preprocess_path=None
     cutoff=6
     mic=True
 
