@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import sys
-sys.path.insert(0, '/qfs/projects/sppsi/spru445/schnetpack_builds/schnetpack_16_fast_copy/src')
 
 import numpy as np
 import random
