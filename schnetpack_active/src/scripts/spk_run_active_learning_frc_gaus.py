@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 import sys
+import os
+import os.path as op
+sys.path.insert(0, op.join('..', 'src')
 
 import numpy as np
 import random
-import os
-import os.path as op
+
 import torch
 import logging
 import schnetpack as spk
