@@ -1,5 +1,7 @@
 import sys
-sys.path.insert(0,'../src/')
+import os
+import os.path as op
+sys.path.insert(0,op.join('..','src'))
 
 import math
 import logging
@@ -8,8 +10,6 @@ import torch
 from ase.neighborlist import neighbor_list
 import itertools
 from collections import Counter
-import os.path as op
-import os
 from ase.db import connect
 from schnetpack import Properties
 

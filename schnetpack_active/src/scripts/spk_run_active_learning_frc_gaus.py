@@ -2,7 +2,7 @@
 import sys
 import os
 import os.path as op
-sys.path.insert(0, op.join('..','..', 'src')
+sys.path.insert(0, '..')
 
 import numpy as np
 import random
