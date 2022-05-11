@@ -2,28 +2,31 @@ import os
 import os.path as op
 import numpy as np
 import tqdm
-
+import argparse
 import utils
 
-datadir='/qfs/projects/sppsi/spru445/NNs/active_learning/active_anneal_N1_high_cutoff/experiments-for-paper-011/best_model/'
-sample='N3'
-#savedir='/qfs/projects/sppsi/sppsi_graphs/images/vacancy_NNs'
-savedir='./'
+parser = argparse.ArgumentParser()
+parser.add_argument('--sample', required=True, type=str, help="sample ID")
+parser.add_argument('--datadir', required=True, type=str, help="path where output of shear tests is stored")
+parser.add_argument('--savedir', default='./', type=str, help="path to save images")
+args = parser.parse_args()
+
+
 # collect all rattles
-runs = [op.join(datadir, sample, run, 'nn-xyz') for run in os.listdir(op.join(datadir, sample))]
+runs = [op.join(args.datadir, args.sample, run, 'nn-xyz') for run in os.listdir(op.join(args.datadir, args.sample))]
 runs = runs[:1]
 print(f'{len(runs)} rattle plots to generate')
 
 
-if not op.isdir(op.join(savedir,sample)):
-    os.mkdir(op.join(savedir,sample))
+if not op.isdir(op.join(args.savedir, args.sample)):
+    os.mkdir(op.join(args.savedir, args.sample))
 
 
 for run in tqdm.tqdm(runs):
     steps = sorted(os.listdir(run))
     all_species_ratios=[]
     all_G=[]
-    figname = op.join(savedir, sample, f"{run.split('/')[-2]}")
+    figname = op.join(args.savedir, args.sample, f"{run.split('/')[-2]}")
     
     i=0
     for step in range(len(steps)):
