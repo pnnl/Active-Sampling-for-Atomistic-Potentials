@@ -1,7 +1,5 @@
 import sys
-import os
-import os.path as op
-sys.path.insert(0,op.join('..','src'))
+sys.path.insert(0,'../schnetpack/src/')
 
 import math
 import logging
@@ -10,16 +8,19 @@ import torch
 from ase.neighborlist import neighbor_list
 import itertools
 from collections import Counter
+import os.path as op
+import os
 from ase.db import connect
 from schnetpack import Properties
 
 flatten = lambda x: [item for sublist in x for item in sublist]
 
 class self:
-    datapath=None
-    preprocess_path=None
-    cutoff=6
+    cutoff=3.2
     mic=True
+    datapath='/qfs/projects/sppsi/spru445/schnet_dbs/full_dataset_precomputed/training_data/full/full.db'
+    preprocess_path=f'/qfs/projects/sppsi/spru445/schnet_dbs/full_dataset_precomputed/training_data/full/cutoff{cutoff}/'
+    
 
 def torchify_dict(data):
     """
