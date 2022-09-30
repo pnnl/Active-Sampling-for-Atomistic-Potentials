@@ -55,3 +55,12 @@ conda install --strict-channel-priority -c https://conda.ovito.org -c conda-forg
 ## Documentation
 
 For the original SchNetPack API reference, visit the [documentation](https://schnetpack.readthedocs.io).
+
+### Nearest Neighbor Preprocessing
+
+To save time in training, we recommend preprocessing nearest neighbor calculations. Use the parse_db.py file for this:
+
+```
+python ./preprocessing/parse_db.py --data_path [path to .db file] --preprocessing_path [path to preprocessing dir] --cutoff [atomic cutoff distance]
+```
+Use the ```--no_mic``` flag to toggle off the minimum image convention for peridic boundary conditions. When ```--no_mic``` is present, the mimimum image convention will not be used.

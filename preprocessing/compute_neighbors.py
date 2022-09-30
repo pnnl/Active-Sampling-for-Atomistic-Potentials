@@ -15,11 +15,13 @@ from schnetpack import Properties
 
 flatten = lambda x: [item for sublist in x for item in sublist]
 
-class self:
-    cutoff=3.2
-    mic=True
-    datapath='/qfs/projects/sppsi/spru445/schnet_dbs/full_dataset_precomputed/training_data/full/full.db'
-    preprocess_path=f'/qfs/projects/sppsi/spru445/schnet_dbs/full_dataset_precomputed/training_data/full/cutoff{cutoff}/'
+parser = argparse.ArgumentParser()
+parser.add_argument('--data_path', type=str, help='Path .db with data')
+parser.add_argument('--preprocess_path', type=str, help='Directory to save preprocess data')
+parser.add_argument('--cutoff', type=float, default=6.0, help='Cutoff value for nearest neighbor collection')
+parser.add_argument('--no_mic', action='store_false', default=6.0, help='Cutoff value for nearest neighbor collection')
+parser.add_argument()
+args = parser.parse_args()
     
 
 def torchify_dict(data):
@@ -71,7 +73,7 @@ def collate_input(atoms, data, inputs={}):
     return inputs
 
 
-db=connect(self.datapath) 
+db=connect(args.data_path) 
 
 def prepro(i):
     row = db.get(i+1)
@@ -81,8 +83,8 @@ def prepro(i):
     
     atoms = row.toatoms()
     n_atoms = len(atoms)
-    distance_matrix = atoms.get_all_distances(self.mic)
-    distances = np.nonzero(np.where(distance_matrix <= self.cutoff, distance_matrix, 0))
+    distance_matrix = atoms.get_all_distances(not args.no_mic)
+    distances = np.nonzero(np.where(distance_matrix <= args.cutoff, distance_matrix, 0))
     neighborhood_idx = [list(distances[1][np.argwhere(distances[0] == i).flatten()]) for i in range(n_atoms)]
     n_max_nbh = np.max([len(x) for x in neighborhood_idx])
     neighbors = np.array([np.pad(x, (0,n_max_nbh-len(x)), mode='constant', constant_values=-1) for x in neighborhood_idx], dtype=np.int)
@@ -91,7 +93,7 @@ def prepro(i):
     data = {'neighbors': neighbors}
     input_data = torchify_dict(collate_input(atoms, data, inputs={'energy': energy, 'forces': forces}))
     
-    torch.save(input_data, op.join(self.preprocess_path, f'{i}.pt'))
+    torch.save(input_data, op.join(args.preprocess_path, f'{i}.pt'))
     
     
 from multiprocessing import Pool
